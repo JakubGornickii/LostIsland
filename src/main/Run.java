@@ -1,6 +1,5 @@
 package main;
 
-import display.Display;
 
 public class Run {
     public static void main(String[] args) {

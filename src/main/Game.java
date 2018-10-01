@@ -2,45 +2,71 @@ package main;
 
 import display.Display;
 import graphics.Assets;
+import input.KeyManager;
+import state.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Game implements Runnable {
-    private boolean running = false;
+    private boolean running;
     private Display display;
     private int width, height;
     private Thread thread;
     private String title;
-    private Graphics graphics;
-    private BufferStrategy bufferStrategy;
+    private Graphics g;
+    private BufferStrategy bs;
     private BufferedImage image;
+    private KeyManager keyManager;
+
+    //states
+    private State gameState;
+    private State menuState;
+    private State optionState;
+    private State creditsState;
 
 
     public Game(String title, int width, int height) {
         this.height = height;
         this.width = width;
         this.title = title;
+        keyManager = new KeyManager();
+        running =false;
+
     }
 
-    private void update() {
-
+    private void tick() {
+        keyManager.tick();
+if(CurrentState.getCurrentState() != null){
+    CurrentState.getCurrentState().tick();
+}
     }
 
     private void render() {
-        bufferStrategy = display.getCanvas().getBufferStrategy();
-        if (bufferStrategy == null) {
+
+
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null) {
             display.getCanvas().createBufferStrategy(3);
             return;
         }
-        graphics = bufferStrategy.getDrawGraphics();
-        graphics.clearRect(0, 0, width, height);
-        Assets.renderBg(Assets.getMap1(),Assets.getAssets1(),graphics);
-        bufferStrategy.show();
-        graphics.dispose();
+        g = bs.getDrawGraphics();
+        g.clearRect(0, 0, width, height);
+
+
+           if (CurrentState.getCurrentState() != null){
+               CurrentState.getCurrentState().render(g);
+           }
+
+
+            bs.show();
+            g.dispose();
+
 
     }
+
+
 
     @Override
     public void run() {
@@ -61,7 +87,7 @@ public class Game implements Runnable {
             lastTime = now;
 
             if (delta >= 1) {
-                update();
+                tick();
                 render();
                 ticks++;
                 delta--;
@@ -77,7 +103,13 @@ public class Game implements Runnable {
 
     private void init() {
         display = new Display(title, width, height);
+        display.getjFrame().addKeyListener(keyManager);
         Assets.init();
+        gameState = new GameState(this);
+        creditsState = new CreditsState(this);
+        optionState = new OptionsState(this);
+        menuState = new MenuState(this);
+        CurrentState.setCurrentState(gameState);
 
     }
 
@@ -98,5 +130,9 @@ public class Game implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 }
