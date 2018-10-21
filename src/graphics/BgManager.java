@@ -1,7 +1,9 @@
 package graphics;
 
-import entity.creature.Player;
+import entity.moveobject.Player;
 import main.Game;
+import objectManager.ActiveObject;
+import objectManager.ScreenPosition;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -42,20 +44,24 @@ public class BgManager {
 
         if (playerY - SCROLLING_Y < bgY) {
             offSetY += player.getSpeed();
+            ScreenPosition.yOff += player.getSpeed();
             player.setY(player.getY() + player.getSpeed());
 
         }
         if (playerY - SCROLLING_Y > bgY + height / 2) {
             offSetY -= player.getSpeed();
+            ScreenPosition.yOff -= player.getSpeed();
             player.setY(player.getY() - player.getSpeed());
         }
         if (playerX - SCROLLING_X < bgX) {
             offSetX += player.getSpeed();
+            ScreenPosition.xOff += player.getSpeed();
             player.setX(player.getX() + player.getSpeed());
 
         }
         if (playerX - SCROLLING_X > bgX + width / 2) {
             offSetX -= player.getSpeed();
+            ScreenPosition.xOff -= player.getSpeed();
             player.setX(player.getX() - player.getSpeed());
 
         }
@@ -68,7 +74,8 @@ public class BgManager {
                 bgActualtailCol--;
                 offSetY = 0;
             } else {
-                offSetY = 32;
+                offSetY -=player.getSpeed();
+                ScreenPosition.yOff -=player.getSpeed();
             }
 
         }
@@ -81,7 +88,8 @@ public class BgManager {
                 bgActualtailRow--;
                 offSetX = 0;
             } else {
-                offSetX = 32;
+                offSetX -= player.getSpeed();
+                ScreenPosition.xOff -=player.getSpeed();
             }
         }
 
@@ -106,7 +114,5 @@ public class BgManager {
         if (bgActualtailRow < 0) {
             bgActualtailRow = 0;
         }
-        System.out.println(bgActualtailRow + " " + bgActualtailCol);
-        System.out.println(numRowsToDraw + " " + numColsToDraw);
     }
 }

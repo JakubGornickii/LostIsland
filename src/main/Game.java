@@ -3,6 +3,7 @@ package main;
 import display.Display;
 import graphics.Assets;
 import input.KeyManager;
+import objectManager.ActiveObject;
 import state.*;
 
 import java.awt.*;
@@ -19,7 +20,6 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private BufferedImage image;
     private KeyManager keyManager;
-    private int ticks;
 
     //states
     private State gameState;
@@ -75,6 +75,7 @@ if(CurrentState.getCurrentState() != null){
         int fps = 60;
         double timePerTick = 1000000000 / fps;
         double delta = 0;
+        int ticks;
         long now;
         long timer = 0;
         ticks = 0;
@@ -84,6 +85,7 @@ if(CurrentState.getCurrentState() != null){
         while (running) {
             now = System.nanoTime();
             delta += (now - lastTime) / timePerTick;
+
             timer += now - lastTime;
             lastTime = now;
 
@@ -145,7 +147,5 @@ if(CurrentState.getCurrentState() != null){
         return height;
     }
 
-    public int getTicks() {
-        return ticks;
-    }
+
 }
