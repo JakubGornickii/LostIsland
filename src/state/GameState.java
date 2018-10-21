@@ -16,7 +16,7 @@ public class GameState extends State {
 
     public GameState(Game game) {
         super(game);
-        player = new Player(game, START_POSITION_X, START_POSITION_Y,5);
+        player = new Player(game, START_POSITION_X, START_POSITION_Y,1);
         bgManager = new BgManager(game , player);
 
     }

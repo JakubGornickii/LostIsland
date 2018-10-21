@@ -19,6 +19,7 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private BufferedImage image;
     private KeyManager keyManager;
+    private int ticks;
 
     //states
     private State gameState;
@@ -76,7 +77,7 @@ if(CurrentState.getCurrentState() != null){
         double delta = 0;
         long now;
         long timer = 0;
-        int ticks = 0;
+        ticks = 0;
         long lastTime = System.nanoTime();
 
 
@@ -142,5 +143,9 @@ if(CurrentState.getCurrentState() != null){
 
     public int getHeight() {
         return height;
+    }
+
+    public int getTicks() {
+        return ticks;
     }
 }
