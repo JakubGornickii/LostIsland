@@ -7,7 +7,7 @@ public class Display {
     private JFrame jFrame;
     private Canvas canvas;
     private String title;
-    public static int width,height;
+    public static int width, height;
 
     public Display(String title, int width, int height) {
         this.title = title;
@@ -18,13 +18,14 @@ public class Display {
 
     private void lunchDisplay() {
         jFrame = new JFrame(title);
-        jFrame.setSize(width,height);
+        jFrame.setSize(width, height);
         jFrame.setDefaultCloseOperation(3);
         jFrame.setResizable(false);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
         canvas = new Canvas();
-        canvas.setSize(new Dimension(width,height));
+        canvas.setSize(new Dimension(width, height));
+        canvas.setFocusable(false);
         jFrame.add(canvas);
         jFrame.pack();
 
@@ -32,5 +33,9 @@ public class Display {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public JFrame getjFrame() {
+        return jFrame;
     }
 }

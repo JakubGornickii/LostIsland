@@ -10,8 +10,8 @@ public class Player extends Creature {
     private Game game;
 int counter;
 
-    public Player(Game game,float x, float y) {
-        super(x, y);
+    public Player(Game game,float x, float y,int speed) {
+        super(x, y,speed);
         this.game = game;
     }
 
@@ -48,6 +48,15 @@ g.drawImage(Assets.player,(int)x,(int)y,null);
     }
     public float getY() {
         return super.y;
+    }
+    public float setX(float x) {
+        return super.x = x;
+    }
+    public float setY(float y) {
+        return super.y = y;
+    }
+    public int getSpeed(){
+        return super.speed;
     }
 
 }

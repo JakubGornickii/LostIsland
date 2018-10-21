@@ -135,4 +135,12 @@ if(CurrentState.getCurrentState() != null){
     public KeyManager getKeyManager() {
         return keyManager;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

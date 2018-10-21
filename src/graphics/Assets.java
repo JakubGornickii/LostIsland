@@ -32,13 +32,5 @@ public class Assets {
 
     }
 
-    public static Graphics renderBg(int[][] map, BufferedImage[] assets, Graphics graphics) {
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                graphics.drawImage(assets[map[j][i] - 1], i * 32, j * 32, null);
-            }
-        }
-        return graphics;
-    }
 }
